@@ -14,7 +14,7 @@ class Profile extends Authenticatable
     // Specify the table if it's not the plural form of the model name
     protected $table = 'profile'; // Note: ensure the table name is plural
 
-    // Allow mass assignment for these attributes
+    // Allow mass assignment for these attributesa
     protected $fillable = [
         'name',
         'email',
