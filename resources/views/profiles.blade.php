@@ -7,8 +7,7 @@
     <title>User Profile</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
@@ -36,24 +35,6 @@
             font-weight: 700;
         }
 
-        .navbar {
-            background-color: #f8f9fa;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #003366;
-        }
-
-        .nav-link {
-            color: #003366;
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            color: #66ccff;
-        }
 
         .btn-outline-primary {
             border-color: #003366;
@@ -115,6 +96,14 @@
             margin-bottom: 20px;
         }
 
+        .profile-pic {
+            width: 100px; /* Set width for profile picture */
+            height: 100px; /* Set height for profile picture */
+            border-radius: 50%; /* Circular image */
+            object-fit: cover; /* Cover to maintain aspect ratio */
+            margin-bottom: 15px; /* Space below the image */
+        }
+
         .edit-profile-btn {
             background-color: #FFD700;
             color: black;
@@ -142,36 +131,7 @@
     </style>
 </head>
 <body>
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">ETC</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('calculate') }}">Calculate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('about') }}">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profiles') }}">Profile</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
+@include('partials.navbar')
 <!-- User Profile Page -->
 <div class="container mt-5">
     <h2 class="text-center mb-4">User Profile</h2>
@@ -194,6 +154,11 @@
         <!-- Right column for user data -->
         <div class="col-md-9">
             <div class="row">
+                <!-- Profile Picture -->
+                <div class="col-md-12 text-center mb-3">
+                <img src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/defaultprofile.jpg') }}"  alt="Profile Picture" class="profile-pic" style="width: 150px; height: 150px; object-fit: cover;">
+</div>
+
                 <!-- Email -->
                 <div class="col-md-12 mb-3">
                     <div class="profile-card" id="email">
@@ -214,7 +179,18 @@
                 <div class="col-md-12 mb-3">
                     <div class="profile-card" id="monthly-usage">
                         <h5 class="profile-title text-primary">MONTHLY USAGE</h5>
-                        <p class="profile-value">{{ $user->monthly_usage ?? 'N/A' }} kWh</p>
+
+                        @if($appliances && count($appliances) > 0)
+                            <ul class="list-group">
+                                @foreach($appliances as $appliance)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ $appliance->appliance }} - {{ $appliance->monthly_consumption }} kWh
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p class="profile-value">No appliance data available.</p>
+                        @endif
                     </div>
                 </div>
 
@@ -238,7 +214,6 @@
 </div>
 
 <!-- Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFyHqnldRyFvQpIHNd+I7L8sbYDXp+f3e9y5v9I5SmHU5/awsuZVVFIhvj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -17,6 +17,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
+            height: 100vh;
         }
 
         .hero-section {
@@ -56,7 +57,7 @@
         }
 
         .btn-primary {
-            background-color: yellow;
+            background-color: #FFD700;
             color: black;
             font-weight: 700;
             padding: 10px 20px;
@@ -64,28 +65,7 @@
             border-radius: 5px;
         }
 
-        /* Custom Navbar Styles */
-        /* Navbar Styles */
-/* Custom Navbar Styles */
-        /* Navbar Styles */
-        .navbar {
-            background-color: #f8f9fa;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #003366; /* Dark blue */
-        }
-
-        .nav-link {
-            color: #003366; /* Dark blue */
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            color: #66ccff; /* Light blue */
-        }
+    
 
         .btn-outline-primary {
             border-color: #003366;
@@ -98,7 +78,7 @@
             color: white;
         }
 .btn-primary-signup {
-    background-color: yellow;
+    background-color: #FFD700;
     color: black;
     font-weight: 600;
 }
@@ -150,6 +130,7 @@
     </style>
 </head>
 <body>
+<<<<<<< HEAD
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
@@ -180,6 +161,9 @@
         </div>
     </div>
 </nav>
+=======
+@include('partials.navbarguest')
+>>>>>>> ed07bad (first commit)
 
 
 <!-- Hero Section -->

@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFyHqnldRyFvQpIHNd+I7L8sbYDXp+f3e9y5v9I5SmHU5/awsuZVVFIhvj" crossorigin="anonymous">
     </script>
@@ -39,13 +38,6 @@
         width: 100%;
     }
 
-    .card {
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 15px;
-        border: none;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-
     .form-control {
         background-color: rgba(255, 255, 255, 0.9);
     }
@@ -53,6 +45,10 @@
     .form-control:focus {
         box-shadow: none;
         border-color: #66ccff;
+    }
+
+    .text-danger {
+        font-size: 0.875rem;
     }
 </style>
 
@@ -81,21 +77,29 @@
                                         <div class="form-outline mb-4">
                                             <input type="text" id="form2Example11" name="name" class="form-control" placeholder="Full Name" required />
                                             <label class="form-label" for="form2Example11">Name</label>
+                                            <div class="text-danger" id="nameError"></div>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <input type="email" id="form2Example12" name="email" class="form-control" placeholder="Email address" required />
                                             <label class="form-label" for="form2Example12">Email</label>
+                                                 <!-- Display email error -->
+                                                @if ($errors->has('email'))
+                                                    <div class="text-danger">{{ $errors->first('email') }}</div>
+                                                @endif
+                                            <div class="text-danger" id="emailError"></div>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <input type="password" id="form2Example21" name="password" class="form-control" placeholder="Password" required />
                                             <label class="form-label" for="form2Example21">Password</label>
+                                            <div class="text-danger" id="passwordError"></div>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <input type="password" id="form2Example22" name="password_confirmation" class="form-control" placeholder="Confirm Password" required />
                                             <label class="form-label" for="form2Example22">Confirm Password</label>
+                                            <div class="text-danger" id="passwordConfirmError"></div>
                                         </div>
 
                                         <div class="text-center pt-1 mb-5 pb-1">
@@ -115,6 +119,57 @@
             </div>
         </div>
     </section>
-</body>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector('form');
+            
+            form.addEventListener('submit', function (event) {
+                let valid = true;
+                const email = document.getElementById('form2Example12');
+                const password = document.getElementById('form2Example21');
+                const passwordConfirmation = document.getElementById('form2Example22');
+                const name = document.getElementById('form2Example11');
+                
+                // Reset previous error messages
+                document.getElementById('nameError').innerText = '';
+                document.getElementById('emailError').innerText = '';
+                document.getElementById('passwordError').innerText = '';
+                document.getElementById('passwordConfirmError').innerText = '';
+
+                // Check for empty fields
+                if (name.value.trim() === '') {
+                    document.getElementById('nameError').innerText = 'Name is required.';
+                    valid = false;
+                }
+
+                if (email.value.trim() === '' || !validateEmail(email.value)) {
+                    document.getElementById('emailError').innerText = 'Please enter a valid email address.';
+                    valid = false;
+                }
+
+                if (password.value.length < 8) {
+                    document.getElementById('passwordError').innerText = 'Password must be at least 8 characters long.';
+                    valid = false;
+                }
+
+                if (password.value !== passwordConfirmation.value) {
+                    document.getElementById('passwordConfirmError').innerText = 'Passwords do not match.';
+                    valid = false;
+                }
+
+                // If not valid, prevent form submission
+                if (!valid) {
+                    event.preventDefault();
+                }
+            });
+
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(String(email).toLowerCase());
+            }
+        });
+    </script>
+
+</body>
 </html>

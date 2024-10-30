@@ -7,9 +7,7 @@
     <title>Home - Appliance Tracking</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS for better layout and design -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -18,28 +16,10 @@
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
+            height: 100%;
         }
 
-        /* Navbar Styles */
-        .navbar {
-            background-color: #f8f9fa;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #003366; /* Dark blue */
-        }
-
-        .nav-link {
-            color: #003366; /* Dark blue */
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            color: #66ccff; /* Light blue */
-        }
-
+    
         /* About Us Section */
         .about-us {
             text-align: center;
@@ -102,19 +82,6 @@
             color: #66ccff;
         }
 
-        /* Footer Section */
-        .footer {
-            background-color: #003366;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-        }
-
-        .footer p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
 
         .btn-outline-primary {
             border-color: #003366;
@@ -133,41 +100,12 @@
             padding: 7px 13px;
             border: none;
             border-radius: 5px;
-            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
     @auth
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">ETC</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="calculate">Calculate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                      <a class="nav-link" href="profiles">Profile</a>
-                  </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+    @include('partials.navbar')
 
 <!-- About Us Section -->
 <section class="about-us">
@@ -215,35 +153,7 @@
 
 @guest
 
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">ETC</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="calculate">Calculate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact">Contact Us</a>
-                </li>
-            </ul>
-            <div class="d-flex">
-                <a href="loginpage"><button class="btn btn-outline-primary me-2" type="button">Login</button></a>
-                <a href="signup"><button class="btn btn-primary-signup" type="button">Sign Up</button></a>
-            </div>
-        </div>
-    </div>
-</nav>
+@include('partials.navbarguest')
 
 <section class="about-us">
     <h2>About Us</h2>
@@ -289,14 +199,9 @@
 
 @endguest
 
-<!-- Footer Section -->
-<footer class="footer">
-    <p>&copy; 2024 Energy Tracking Corp. All rights reserved.</p>
-</footer>
 
 <!-- Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFyHqnldRyFvQpIHNd+I7L8sbYDXp+f3e9y5v9I5SmHU5/awsuZVVFIhvj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Font Awesome for social icons -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

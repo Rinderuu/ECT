@@ -7,8 +7,7 @@
     <title>Edit Profile - Appliance Tracking</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
@@ -58,24 +57,7 @@
             margin-bottom: 20px;
         }
 
-        .navbar {
-            background-color: #f8f9fa;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #003366;
-        }
-
-        .nav-link {
-            color: #003366;
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            color: #66ccff;
-        }
+    
 
         .btn-outline-primary {
             border-color: #003366;
@@ -106,41 +88,8 @@
 </head>
 <body>
   @auth
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-          <a class="navbar-brand" href="#">ETC</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('home') }}">Home</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('calculate') }}">Calculate</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('about') }}">About</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('profiles') }}">Profile</a>
-                  </li>
-              </ul>
-              <!-- Logout Button -->
-              <form action="{{ route('logout') }}" method="POST" class="d-flex ms-auto">
-                  @csrf
-                  <button type="submit" class="btn btn-outline-primary">Logout</button>
-              </form>
-          </div>
-      </div>
-  </nav>
-
+  @include('partials.navbar')
+  
   <!-- Profile Edit Section -->
   <div class="container">
       <div class="row justify-content-center">
@@ -166,10 +115,13 @@
                       
                       <!-- Profile Picture -->
                       <div class="mb-3 text-center">
-                          <label for="profile_picture" class="form-label">Profile Picture</label><br>
-                          <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" class="profile-img img-thumbnail mb-2" style="width: 150px; height: 150px; object-fit: cover;">
-                          <input type="file" class="form-control" id="profile_picture" name="profile_picture">
-                      </div>
+                            <label for="profile_picture" class="form-label">Profile Picture</label><br>
+                            <img src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('images/defaultprofile.jpg') }}" 
+                                alt="Profile Picture" 
+                                class="profile-img img-thumbnail mb-2" 
+                                style="width: 150px; height: 150px; object-fit: cover;">
+                            <input type="file" class="form-control" id="profile_picture" name="profile_picture">
+                        </div>
                       
                       <!-- Form fields -->
                       <div class="mb-3">
@@ -211,7 +163,6 @@
   @endguest
 
   <!-- Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-MrcW6ZMFyHqnldRyFvQpIHNd+I7L8sbYDXp+f3e9y5v9I5SmHU5/awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

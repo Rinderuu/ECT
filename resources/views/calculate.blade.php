@@ -7,8 +7,7 @@
     <title>Appliance Tracking Calculator</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS for better layout and design -->
     <style>
@@ -19,26 +18,9 @@
             margin: 0;
             background: linear-gradient(135deg, #eef2f3, #8e9eab);
             color: #343a40;
+            height: 100vh;
         }
 
-        .navbar {
-            background-color: #f8f9fa;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #003366; /* Dark blue */
-        }
-
-        .nav-link {
-            color: #003366; /* Dark blue */
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            color: #66ccff; /* Light blue */
-        }
 
         .container {
             max-width: 600px;
@@ -91,19 +73,6 @@
             border-radius: 10px; /* Rounded corners */
         }
 
-                /* Footer Section */
-                .footer {
-            background-color: #003366;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-        }
-
-        .footer p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
 
         .btn-outline-primary {
             border-color: #003366;
@@ -183,40 +152,7 @@
 </head>
 <body>
   @auth
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">ETC</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="calculate">Calculate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                      <a class="nav-link" href="profiles">Profile</a>
-                  </li>
-            </ul>
-
-            <form action="{{ route('logout') }}" method="POST" class="d-flex">
-                  @csrf
-                  <button type="submit" class="btn btn-outline-primary">Logout</button>
-              </form>
-        </div>
-    </div>
-</nav>
+  @include('partials.navbar')
 
 <!-- Appliance Tracking Calculator Form -->
 <div class="container mt-5">
@@ -224,32 +160,62 @@
         <h2>APPLIANCE TRACKING CALCULATOR</h2>
         <p>Know how much your gadgets and appliances consume so you can manage your budget better.</p>
     </div>
-    <form id="calcForm">
-        <div class="mb-3">
-            <label for="appliance" class="form-label">Select an Appliance</label>
-            <select class="form-select" id="appliance">
-                <option value="Refrigerator">Refrigerator</option>
-                <option value="Air Conditioner">Air Conditioner</option>
-                <option value="Television">Television</option>
-                <option value="Washing Machine">Washing Machine</option>
-                <option value="Microwave">Microwave</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="wattage" class="form-label">Wattage (Power Rating)</label>
-            <input type="number" class="form-control" id="wattage" placeholder="Enter power rating in watts" required>
-        </div>
-        <div class="mb-3">
-            <label for="hours" class="form-label">Daily Usage (1 - 24 hrs)</label>
-            <input type="number" class="form-control" id="hours" placeholder="Enter daily usage in hours" required>
-        </div>
-        <div class="mb-3">
-            <label for="cost" class="form-label">Cost per kWh</label>
-            <input type="number" class="form-control" id="cost" placeholder="Enter cost per kWh in your area" required>
-        </div>
-        <button type="button" class="btn btn-primary" onclick="calculateConsumption()">Calculate</button>
-    </form>
+    <form action="{{ route('appliance.store') }}" method="POST" id="calcForm">
+    @csrf
+    <div class="mb-3">
+        <label for="appliance" class="form-label">Select an Appliance</label>
+        <select class="form-select" id="appliance" name="appliance" onchange="autoFillData()">
+            <option value="Refrigerator">Refrigerator</option>
+            <option value="Air Conditioner">Air Conditioner</option>
+            <option value="Television">Television</option>
+            <option value="Washing Machine">Washing Machine</option>
+            <option value="Microwave">Microwave</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="wattage" class="form-label">Wattage (Power Rating)</label>
+        <input type="number" class="form-control" id="wattage" name="wattage" placeholder="Enter power rating in watts" required>
+    </div>
+    <div class="mb-3">
+        <label for="hours" class="form-label">Daily Usage (1 - 24 hrs)</label>
+        <input type="number" class="form-control" id="hours" name="hours" placeholder="Enter daily usage in hours" required>
+    </div>
+    <div class="mb-3">
+    <label for="cost" class="form-label">Cost per kWh</label>
+    <input type="number" class="form-control" id="cost" name="cost_per_kwh" placeholder="Enter cost per kWh in your area" step="0.01" required>
 </div>
+    <button type="submit" class="btn btn-primary">Calculate</button>
+</form>
+
+</div>
+<script>
+    // Appliance data with default wattage and cost per kWh
+    const applianceData = {
+        "Refrigerator": { "wattage": 150, "cost": 0.12 },
+        "Air Conditioner": { "wattage": 2000, "cost": 0.15 },
+        "Television": { "wattage": 100, "cost": 0.10 },
+        "Washing Machine": { "wattage": 500, "cost": 0.13 },
+        "Microwave": { "wattage": 1200, "cost": 0.14 }
+    };
+
+    // Function to auto-fill wattage and cost per kWh based on selected appliance
+    function autoFillData() {
+        const applianceSelect = document.getElementById('appliance').value;
+        const wattageField = document.getElementById('wattage');
+        const costField = document.getElementById('cost');
+
+        // Get the wattage and cost for the selected appliance
+        const selectedAppliance = applianceData[applianceSelect];
+
+        if (selectedAppliance) {
+            wattageField.value = selectedAppliance.wattage;
+            costField.value = selectedAppliance.cost;
+        } else {
+            wattageField.value = '';
+            costField.value = '';
+        }
+    }
+</script>
 
 <!-- JavaScript for calculations and redirection -->
 <script>
@@ -280,27 +246,11 @@
     }
 </script>
 
-<footer class="footer">
-    <p>&copy; 2024 Energy Tracking Corp. All rights reserved.</p>
-</footer>
-
 @endauth
 
-@guest
-<div class="centered-container">
-  <p class="login-message">
-    Please 
-    <a href="{{ route('loginpage') }}">
-      log in
-    </a> 
-     to continue.
-  </p>
-</div>
 
-  @endguest
 
 <!-- Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFyHqnldRyFvQpIHNd+I7L8sbYDXp+f3e9y5v9I5SmHU5/awsuZVVFIhvj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

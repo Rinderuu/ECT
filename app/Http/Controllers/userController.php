@@ -47,4 +47,13 @@ class userController extends Controller
     {
         return view('profilesedit');
     }
+    public function guest_result()
+    {
+        return view('guest_result');
+    }
+
+    public function calculate_guest()
+    {
+        return view('calculate_guest');
+    }
 }
