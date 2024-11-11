@@ -42,6 +42,10 @@ return [
             'provider' => 'users',
         ],
     ],
+    'admin' => [
+        'driver' => 'session',
+        'provider' => 'admins', // Define a new provider for admins if needed
+    ],
 
     /*
     |--------------------------------------------------------------------------

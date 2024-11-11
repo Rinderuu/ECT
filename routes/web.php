@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApplianceController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AdminController;
 
 
 /*
@@ -58,6 +59,21 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 //contact us
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+
+
+//Admin Dashboard
+
+// Admin login route
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+
+// Admin dashboard route (accessible only to logged-in admins)
+Route::middleware('admin')->group(function () {
+    Route::get('/admindashboard', [AdminController::class, 'admindashboard'])->name('admindashboard');
+    Route::get('/adminusers', [AdminController::class, 'showAllUsers'])->name('adminusers');
+    Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+    Route::get('/admin/dashboard', [AdminController::class, 'showAdminDashboard'])->name('admindashboard');
+});
 
 // rsult
 

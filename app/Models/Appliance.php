@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,12 +11,12 @@ class Appliance extends Model
     protected $fillable = [
         'name',
         'monthly_usage',
-        'user_id', // Foreign key to link to Profile
+        'user_id', // Foreign key to link to User
     ];
 
-    // Define the relationship back to Profile
-    public function profile()
+    // Define the relationship back to User
+    public function user()
     {
-        return $this->belongsTo(Profile::class, 'user_id'); // Adjust if necessary
+        return $this->belongsTo(User::class, 'user_id'); // Link to the User model
     }
 }

@@ -56,4 +56,13 @@ class userController extends Controller
     {
         return view('calculate_guest');
     }
+
+    public function admindashboard()
+    {
+        return view('admindashboard');
+    }
+    public function adminusers()
+    {
+        return view('adminusers');
+    }
 }

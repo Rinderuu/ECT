@@ -145,7 +145,6 @@
 
                 <!-- Clickable Sidebar Links -->
                 <a href="#email">EMAIL</a>
-                <a href="#location">LOCATION</a>
                 <a href="#monthly-usage">MONTHLY USAGE</a>
                 <a href="#savings">SAVINGS OPPORTUNITY</a>
             </div>
@@ -164,14 +163,6 @@
                     <div class="profile-card" id="email">
                         <h5 class="profile-title text-primary">EMAIL</h5>
                         <p class="profile-value">{{ $user->email }}</p>
-                    </div>
-                </div>
-
-                <!-- Location -->
-                <div class="col-md-12 mb-3">
-                    <div class="profile-card" id="location">
-                        <h5 class="profile-title text-primary">LOCATION</h5>
-                        <p class="profile-value">{{ $user->location ?? 'Location not set' }}</p>
                     </div>
                 </div>
 
